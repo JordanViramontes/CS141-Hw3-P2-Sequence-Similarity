@@ -30,7 +30,7 @@ int main() {
 
 double sequence(const string x, const string y, unsigned int i, unsigned int j) {
     // cout << "xAT: " << x.at(i) << "\tyAT: " << y.at(j) << endl;
-    if (i == -1 && j == -1) {
+    if (i == -1 && j == -1) { // use -1 instead of 0 because strings are 0-indexed
         return 0;
     }
     else if (j == -1) {
@@ -42,7 +42,7 @@ double sequence(const string x, const string y, unsigned int i, unsigned int j) 
 
     double temp;
     if (x.at(i) == y.at(j)) {
-        temp = match; //we have a match
+        temp = match; // we have a match
     }
     else {
         temp = sub;
