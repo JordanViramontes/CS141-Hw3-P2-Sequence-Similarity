@@ -28,6 +28,8 @@ int main() {
     return 0;
 }
 
+// find the sequence similarity score of two strings of characters
+// FIXME: does not work for long strings (len greater than 5 💀)
 double sequence(const string x, const string y, unsigned int i, unsigned int j) {
     // cout << "xAT: " << x.at(i) << "\tyAT: " << y.at(j) << endl;
     if (i == -1 && j == -1) { // use -1 instead of 0 because strings are 0-indexed
