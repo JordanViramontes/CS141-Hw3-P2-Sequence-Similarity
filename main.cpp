@@ -148,33 +148,33 @@ void print2dvec(const string &x, const string &y, const vector<vector<cell>> &ve
 
 void printStrings(const string &x, const string &y, string &xFin, string &yFin, int i, int j, const vector<vector<cell>> &vec) {
     //base cases
-    cout << "i: " << i << "\tj: " << j << "\tbools: " 
-        << vec.at(i).at(j).diag << vec.at(i).at(j).hor << vec.at(i).at(j).ver << endl;
-
     if (i == 0 && j == 0) { //at (0,0)
         return;
     }
     else if (i == 0) { //vertical border
+        xFin.insert(0, 1, '-');
+        yFin.insert(0, 1, y.at(j));
         return printStrings(x, y, xFin, yFin, i, j-1, vec);
     }
     else if (j == 0) { //horizontal border
+        xFin.insert(0, 1, x.at(i));
+        yFin.insert(0, 1, '-');
         return printStrings(x, y, xFin, yFin, i-1, j, vec);
     }
     
     if (vec.at(i).at(j).diag) {
-        // xFin.insert(0, 1, x.at(i));
-        // yFin.insert(0, 1, y.at(j));
-        // cout << xFin << endl << yFin << endl;
+        xFin.insert(0, 1, x.at(i-1));
+        yFin.insert(0, 1, y.at(j-1));
         return printStrings(x, y, xFin, yFin, i-1, j-1, vec);
     }
     else if (vec.at(i).at(j).hor) {
-        // xFin.insert(0, 1, x.at(i-1));
-        // yFin.insert(0, 1, '-');
+        xFin.insert(0, 1, x.at(i-2));
+        yFin.insert(0, 1, '-');
         return printStrings(x, y, xFin, yFin, i-1, j, vec);
     }
     else if (vec.at(i).at(j).ver) {
-        // xFin.insert(0, 1, '-');
-        // yFin.insert(0, 1, y.at(i-1));
+        xFin.insert(0, 1, '-');
+        yFin.insert(0, 1, y.at(j-2));
         return printStrings(x, y, xFin, yFin, i-1, j, vec);
     }
     return;
