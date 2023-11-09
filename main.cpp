@@ -15,6 +15,7 @@ struct cell {
 double sequence(const string &x, const string &y);
 double sequenceH(const string &x, const string &y,  int i,  int j, vector<vector<double>> &scores);
 void print2dvec(const string &, const string &, const vector<vector<cell>> &vec);
+void printStrings(const string &x, const string &y, string &xFin, string &yFin, int, int, const vector<vector<cell>> &vec);
 
 const double MATCH = 1.0;
 const double DELETE = -0.2;
@@ -26,11 +27,11 @@ const double ALT_SUB = -0.15; // C<->G, T<->A
 
 int main(int argc, char *argv[]) {
     string x, y;
-    if (argc == 0) {
+    if (argc <= 1) {
         x = "";
         y = "";
     }
-    else if (argc == 1) {
+    else if (argc == 2) {
         x = argv[1];
         y = "";
     }
@@ -98,6 +99,11 @@ double sequence(const string &x, const string &y) {
 
     double returnval = sequenceH(x, y, x.size(), y.size(), scores);
     print2dvec(x, y, scores);
+    string xFinal = "";
+    string yFinal = "";
+    printStrings(x, y, xFinal, yFinal, x.size(), y.size(), scores);
+
+    cout << xFinal << endl << yFinal << endl;
     return returnval;
 }
 
@@ -140,6 +146,39 @@ void print2dvec(const string &x, const string &y, const vector<vector<cell>> &ve
     }
 }
 
+void printStrings(const string &x, const string &y, string &xFin, string &yFin, int i, int j, const vector<vector<cell>> &vec) {
+    //base cases
+    cout << "i: " << i << "\tj: " << j << "\tbools: " 
+        << vec.at(i).at(j).diag << vec.at(i).at(j).hor << vec.at(i).at(j).ver << endl;
+
+    if (i == 0 && j == 0) { //at (0,0)
+        return;
+    }
+    else if (i == 0) { //vertical border
+        return printStrings(x, y, xFin, yFin, i, j-1, vec);
+    }
+    else if (j == 0) { //horizontal border
+        return printStrings(x, y, xFin, yFin, i-1, j, vec);
+    }
+    
+    if (vec.at(i).at(j).diag) {
+        // xFin.insert(0, 1, x.at(i));
+        // yFin.insert(0, 1, y.at(j));
+        // cout << xFin << endl << yFin << endl;
+        return printStrings(x, y, xFin, yFin, i-1, j-1, vec);
+    }
+    else if (vec.at(i).at(j).hor) {
+        // xFin.insert(0, 1, x.at(i-1));
+        // yFin.insert(0, 1, '-');
+        return printStrings(x, y, xFin, yFin, i-1, j, vec);
+    }
+    else if (vec.at(i).at(j).ver) {
+        // xFin.insert(0, 1, '-');
+        // yFin.insert(0, 1, y.at(i-1));
+        return printStrings(x, y, xFin, yFin, i-1, j, vec);
+    }
+    return;
+}
 // original one by me joran times lmfao (super brute force and awful and terrible and clef made many improvements)
 // double sequence(const string x, const string y, unsigned int i, unsigned int j) {
 //     // cout << "xAT: " << x.at(i) << "\tyAT: " << y.at(j) << endl;
