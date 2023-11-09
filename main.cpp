@@ -52,8 +52,14 @@ double sequenceH(const string &x, const string &y,  int i,  int j, vector<vector
     // Base Cases:
     // On the first row and column, theres only deletions and insertions respectively, therefore it will always be -0.2
     if (scores.at(i).at(j).value != -0.01) return scores.at(i).at(j).value;
-    else if (i == 0) scores.at(0).at(j).value = j*DELETE;
-    else if (j == 0) scores.at(i).at(0).value = i*INSERT;
+    else if (i == 0) {
+        scores.at(0).at(j).value = j*DELETE;
+        scores.at(0).at(j).ver = true;
+    }
+    else if (j == 0) {
+        scores.at(i).at(0).value = i*INSERT;
+        scores.at(i).at(0).hor = true;
+    }
     else {
         double temp;
         char xAt = x.at(i-1);
@@ -106,6 +112,24 @@ void print2dvec(const string &x, const string &y, const vector<vector<cell>> &ve
             // cout << "(" << i << "," << j << ")\t";
             if (vec.at(i).at(j).value < 0.01 && vec.at(i).at(j).value > -0.01) cout << "("<< "0.0" << ")\t";
             else cout << "("<< vec.at(i).at(j).value << ")\t";
+        }
+        cout << "\n";
+    }
+
+    cout << endl << "BOOLS: " << endl;
+    for (unsigned int i = 0; i <  x.size(); i++) {
+        if (i == 0) cout << "\t";
+        cout << "\t" << x.at(i);
+    }
+    cout << endl;
+    for (unsigned j = 0; j < vec.at(0).size(); j++) {
+        if (j > 0) {
+            cout << y.at(j-1) << "\t";
+        }
+        else cout << "\t";
+        for (unsigned i = 0; i < vec.size(); i++) {
+            // cout << "(" << i << "," << j << ")\t";
+            cout << vec.at(i).at(j).diag << vec.at(i).at(j).hor << vec.at(i).at(j).ver << "\t";
         }
         cout << "\n";
     }
