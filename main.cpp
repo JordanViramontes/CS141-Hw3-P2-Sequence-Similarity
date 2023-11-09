@@ -77,6 +77,11 @@ double sequenceH(const string &x, const string &y,  int i,  int j, vector<vector
         scores.at(i).at(j).value = max({sequenceH(x, y, i-1, j-1, scores) + temp, 
                                   sequenceH(x, y, i, j-1, scores) + INSERT,
                                   sequenceH(x, y, i-1, j, scores) + DELETE});
+        
+        //update bools
+        if (scores.at(i).at(j).value == scores.at(i-1).at(j-1).value + temp)    scores.at(i).at(j).diag = true;
+        if (scores.at(i).at(j).value == scores.at(i-1).at(j).value + INSERT)    scores.at(i).at(j).hor = true;
+        if (scores.at(i).at(j).value == scores.at(i).at(j-1).value + INSERT)    scores.at(i).at(j).ver = true;
 
 
     }
@@ -116,7 +121,7 @@ void print2dvec(const string &x, const string &y, const vector<vector<cell>> &ve
         cout << "\n";
     }
 
-    cout << endl << "BOOLS: " << endl;
+    cout << endl << "BOOLS (diag, hor, ver): " << endl;
     for (unsigned int i = 0; i <  x.size(); i++) {
         if (i == 0) cout << "\t";
         cout << "\t" << x.at(i);
