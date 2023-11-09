@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
         x = argv[1];
         y = argv[2];
     }
-    x = "AGC";
-    y = "AAGC";
+    x = "GTACTCAG";
+    y = "GGTACTAG";
     cout << "\nx: " << x << "\ty: " << y << endl;
     cout << sequence(x, y) << endl;
     return 0; 
@@ -152,6 +152,7 @@ void printStrings(const string &x, const string &y, string &xFin, string &yFin, 
         return;
     }
     else if (i == 0) { //vertical border
+        cout << "i: " << i << "\tj: " << j << "\tvalue:" << vec.at(i).at(j).value << endl;
         xFin.insert(0, 1, '-');
         yFin.insert(0, 1, y.at(j));
         return printStrings(x, y, xFin, yFin, i, j-1, vec);
@@ -175,7 +176,7 @@ void printStrings(const string &x, const string &y, string &xFin, string &yFin, 
     else if (vec.at(i).at(j).ver) {
         xFin.insert(0, 1, '-');
         yFin.insert(0, 1, y.at(j-2));
-        return printStrings(x, y, xFin, yFin, i-1, j, vec);
+        return printStrings(x, y, xFin, yFin, i, j-1, vec);
     }
     return;
 }
