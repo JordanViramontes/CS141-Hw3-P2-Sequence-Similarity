@@ -15,13 +15,23 @@ const double INSERT = -0.2;
 const double SUB = -0.1; // G<->A, C<->A, G<->T, C<->T
 const double ALT_SUB = -0.15; // C<->G, T<->A
 
-int main() {
-    string x = "AACCTGACATCTT";
-    string y = "CCAGCGTCAACTT";
-    // string x = "AACCT";
-    // string y = "CCA";
+int main(int argc, char *argv[]) {
+    string x, y;
+    if (argc == 0) {
+        x = "";
+        y = "";
+    }
+    else if (argc == 1) {
+        x = argv[1];
+        y = "";
+    }
+    else {
+        x = argv[1];
+        y = argv[2];
+    }
 
-    cout << sequence(x, y) << endl;
+    // cout << "\nx: " << x << "\ty: " << y << endl;
+    // cout << sequence(x, y) << endl;
     return 0; 
 }
 
